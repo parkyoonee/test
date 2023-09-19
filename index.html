@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+
+        #wrap{
+            display: flex;
+            width: 100%;
+            /* height: 100vh; */
+        }
+
+        #left{
+            width: 10%;
+            background: lightgoldenrodyellow;
+            height: 100vh;
+        }
+
+        #right{
+            width: 90%;
+            background: steelblue;
+            height: 100vh;
+        }
+
+        #right section{
+            padding: 30px;
+            margin-top: 100px;
+            width: 100%;
+            display: flex;
+        }
+
+        #right section article{
+            flex: 1;
+            border: 1px solid rgb(202, 202, 202);
+            margin-right: 30px;
+            height: calc() - 130px;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-between;
+            padding: 30px;
+        }
+
+        article .text{
+            width: 100%;
+            padding: 20px;
+            background: lightcyan;
+            height: 150px;
+        }
+
+        article .video{
+            width: 100%;
+            /* height: calc(100vh - 300px); */
+            margin-top: 100px;
+        }
+
+        article .video video{
+            max-width: 100%;
+            object-fit: cover;
+            filter: saturate(10%);
+        }
+
+        article:hover video{
+            filter: saturate(100%);
+        }
+
+        /* 큰 동영상이 숨어있는 공간 .video1 */
+        .aside{
+            position: absolute;
+            left: -500%; top: 0;
+            background: lightcoral;
+            transition: 2s;
+            width: 100%;
+            height: 100%;
+        }
+
+        .active{
+            left: 0;
+        }
+
+        .video1 button{
+            padding: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="left">
+            <h1>로고, 기타사항 입력</h1>
+        </div>
+        <div id="right">
+            <section>
+                <article>
+                    <div class="text">
+                        <h1>1번 동영상</h1>
+                        <p>1번 동영상 설명</p>
+                    </div>
+                    <div class="video">
+                        <video src="video/134822 (1080p).mp4"></video>
+                    </div>
+                </article>
+                <article>
+                    <div class="text">
+                        <h1>2번 동영상</h1>
+                        <p>2번 동영상 설명</p>
+                    </div>
+                    <div class="video">
+                        <video src="video/153976-806571973 (1080p).mp4"></video>
+                    </div>
+                </article>
+                <article>
+                    <div class="text">
+                        <h1>3번 동영상</h1>
+                        <p>3번 동영상 설명</p>
+                    </div>
+                    <div class="video">
+                        <video src="video/168787 (1080p).mp4"></video>
+                    </div>
+                </article>
+                <article>
+                    <div class="text">
+                        <h1>4번 동영상</h1>
+                        <p>4번 동영상 설명</p>
+                    </div>
+                    <div class="video">
+                        <video src="video/178732 (1080p).mp4"></video>
+                    </div>
+                </article>
+            </section>
+        </div>
+        <!-- aside 동영상 따로 있는 곳 -->
+            <div class="aside">
+                <button>close</button>
+                <video src="video/134822 (1080p).mp4"></video>
+            </div>
+            <!-- <div class="video2">
+                <button>close</button>
+                <video src="video/153976-806571973 (1080p).mp4"></video>
+            </div>
+            <div class="video3">
+                <button>close</button>
+                <video src="video/168787 (1080p).mp4"></video>
+            </div>
+            <div class="video4">
+                <button>close</button>
+                <video src="video/178732 (1080p).mp4"></video>
+            </div> -->
+    </div>
+
+    <script>
+        //아티클을 찾아서 아티클에 마우스 오버를 하면 해당 아티클의 비디오가 재생된다.
+
+        const items = document.querySelectorAll('article');
+
+        // for(let i=0; i<items.length; i++){
+        //     items[i].addEventListener('mouseover', function(e){
+        //         e.currentTarget.querySelector('video').play()
+        //     })
+        // }
+        
+        for(let i of items){
+            i.addEventListener('mouseover', (e)=>{
+                e.currentTarget.querySelector('video').play()
+            })
+        }
+
+        // for(let i=0; i<items.length; i++){
+        //     items[i].addEventListener('mouseout', function(e){
+        //         e.currentTarget.querySelector('video').pause()
+        //     })
+        // }
+
+        for(let i of items){
+            i.addEventListener('mouseout', (e)=>{
+                e.currentTarget.querySelector('video').pause()
+            })
+        }
+
+        //아티클을 클릭하면 .video1에 active클래스를 추가해라
+        for(let i=0; i<items.length; i++){
+            items[i].addEventListener('click', e=>{
+                let vidSrc = e.currentTarget.querySelector('video').getAttibute;
+
+                let aside = document.querySelector('.aside');
+                aside.querySelector('video').setAttribute('src', vidSrc);
+
+                aside.classList.add('active');
+                aside.querySelector('video').play();
+
+                const button = document.querySelector('.aside button')
+                button.addEventListener('click', function(){
+                    aside.classList.remove('active')
+                })
+            })
+        }
+
+        
+
+        // button.onclick = function(){
+        //     document.querySelector('.video1').classList.remove('active')
+        // };
+        // button.onclick = function(){
+        //     document.querySelector('.video2').classList.remove('active')
+        // };
+        // button.onclick = function(){
+        //     document.querySelector('.video3').classList.remove('active')
+        // };
+        // button.onclick = function(){
+        //     document.querySelector('.video4').classList.remove('active')
+        // };
+    </script>
+</body>
+</html>
